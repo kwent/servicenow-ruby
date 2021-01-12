@@ -5,6 +5,11 @@ module ServiceNow
     attr_reader :connection
 
     class << self
+      def authenticate_with_token(instance_id, token)
+        connection = Connection.new(instance_id, token, authorization: 'Key')
+        Client.new(connection)
+      end
+
       def authenticate(instance_id, client_id, client_secret, username, password)
         connection_options = {
           url: "https://#{instance_id}.service-now.com/"
