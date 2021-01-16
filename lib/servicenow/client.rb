@@ -6,7 +6,7 @@ module ServiceNow
 
     class << self
       def authenticate_with_token(instance_id, token)
-        connection = Connection.new(instance_id, token, authorization: 'Key')
+        connection = Connection.new(instance_id, token)
         Client.new(connection)
       end
 
@@ -42,6 +42,10 @@ module ServiceNow
 
     def incidents
       @incidents ||= Client::Tables.new(@connection, "incident")
+    end
+
+    def users
+      @users ||= Client::Tables.new(@connection, "sys_user")
     end
 
     def tables(table_name)

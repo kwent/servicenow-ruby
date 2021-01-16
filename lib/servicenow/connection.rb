@@ -5,14 +5,14 @@ module ServiceNow
   class Connection
     delegate_missing_to :@connection
 
-    def initialize(instance_id, token, authorization: 'Bearer')
+    def initialize(instance_id, token)
       @instance_id = instance_id
       @token = token
 
       @connection = Faraday::Connection.new(connection_options) do |conn|
         conn.use HttpErrors
 
-        conn.authorization authorization, @token
+        conn.authorization 'Bearer', @token
         conn.request :json
         conn.response :json
         conn.response :logger

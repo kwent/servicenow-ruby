@@ -9,12 +9,16 @@ module ServiceNow
       get_many "table/#{@table_name}", params
     end
 
-    def find(id)
-      get_one "table/#{@table_name}/#{id}"
+    def find(sys_id)
+      get_one "table/#{@table_name}/#{sys_id}"
     end
 
     def create(params = {})
       post "table/#{@table_name}", params
+    end
+
+    def update(sys_id, params = {})
+      patch "table/#{@table_name}/#{sys_id}", params
     end
   end
 end
